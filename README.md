@@ -65,17 +65,13 @@
 
 > 🚀 **Try it now**: [Live Demo Link](https://http://localhost/public-utility-management-system) _(Coming Soon)_
 
-### Video Walkthrough
-
-> 📹 **Watch Demo**: [YouTube Demo Video](https://https://www.youtube.com/watch?v=dQw4w9WgXcQ) _(Coming Soon)_
-
 ### Quick Demo Setup
 
 Want to test locally? Here's the fastest way:
 
 ```bash
 # Quick setup (requires XAMPP running)
-git clone https://github.com/divyansh-tech/Public-Utility-Management-System.git
+git clone https://github.com/Divyansh3105/Public-Utility-Management-System.git
 cd public-utility-management-system
 
 # Import database
@@ -305,7 +301,7 @@ Before you begin, ensure you have the following installed:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/divyansh-tech/Public-Utility-Management-System.git
+   git clone https://github.com/Divyansh3105/Public-Utility-Management-System.git
    cd public-utility-management-system
    ```
 
@@ -572,29 +568,27 @@ Stores generated reports and analytics.
 
 ### Admin Dashboard
 
-![Admin Dashboard](https://via.placeholder.com/800x450/4A90E2/FFFFFF?text=Admin+Dashboard+-+Overview+%26+Statistics)
+![Admin Dashboard](screenshots/Admin_dashboard.png)
 
 _Comprehensive overview with revenue tracking, bill statistics, and quick actions_
 
-### Employee Billing Interface
+### Admin Dashboard
 
-![Billing Interface](https://via.placeholder.com/800x450/50C878/FFFFFF?text=Employee+Billing+System+-+Generate+%26+Manage+Bills)
+![Billing Interface](screenshots/employee_dashboard.png)
 
 _Intuitive interface for meter reading entry and bill generation_
 
 ### Customer Portal
 
-![Customer Portal](https://via.placeholder.com/800x450/9B59B6/FFFFFF?text=Customer+Portal+-+Bills+%26+Payments)
+![Customer Portal](screenshots/customer_portel.png)
 
 _User-friendly portal for viewing bills and making payments_
 
 ### Dark Mode
 
-![Dark Mode](https://via.placeholder.com/800x450/2C3E50/ECF0F1?text=Dark+Mode+UI+-+Enhanced+Visibility)
+![Dark Mode](screenshots/Darkmode.png)
 
 _Eye-friendly dark theme for extended usage_
-
-> 📸 **Note**: Replace placeholder images with actual screenshots by adding them to a `/screenshots` folder and updating the image paths.
 
 ---
 
@@ -703,7 +697,7 @@ Contributions make the open-source community an amazing place to learn, inspire,
 2. **Clone Your Fork**
 
    ```bash
-   git clone https://github.com/divyansh-tech/Public-Utility-Management-System.git
+   git clone https://github.com/Divyansh3105/Public-Utility-Management-System.git
    cd public-utility-management-system
    ```
 
@@ -751,8 +745,8 @@ Contributions make the open-source community an amazing place to learn, inspire,
 
 Found a bug or have a feature suggestion?
 
-- **Bug Reports**: [Open an issue](https://github.com/divyansh-tech/public-utility-management-system/issues) with the "bug" label
-- **Feature Requests**: [Open an issue](https://github.com/divyansh-tech/public-utility-management-system/issues) with the "enhancement" label
+- **Bug Reports**: [Open an issue](https://github.com/Divyansh3105/public-utility-management-system/issues) with the "bug" label
+- **Feature Requests**: [Open an issue](https://github.com/Divyansh3105/public-utility-management-system/issues) with the "enhancement" label
 
 Please include:
 
@@ -788,9 +782,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 💻 Full-Stack Developer | Student Innovator
 🌟 Passionate about building practical solutions
 
-[![Email](https://img.shields.io/badge/Email-divyansh%40gmail.com-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:divyansh.tech01@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-divyansh-tech-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/divyansh-tech)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/divyansh-tech)
+[![Email](https://img.shields.io/badge/Email-divyanshgarg3105%40gmail.com-red?style=for-the-badge&logo=gmail&logoColor=white)](mailto:divyanshgarg3105@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-Divyansh3105-black?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Divyansh3105)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin&logoColor=white)](www.linkedin.com/in/divyanshgarg3105)
 
 </div>
 
@@ -810,8 +804,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 Need help? Here's how to get support:
 
 - 📖 **Documentation**: Check this README and code comments
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/divyansh-tech/public-utility-management-system/discussions)
-- 🐛 **Issues**: [Report bugs](https://github.com/divyansh-tech/public-utility-management-system/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/Divyansh3105/public-utility-management-system/discussions)
+- 🐛 **Issues**: [Report bugs](https://github.com/Divyansh3105/public-utility-management-system/issues)
 - 📧 **Email**: divyansh.tech01@gmail.com
 
 ---
@@ -826,8 +820,8 @@ Need help? Here's how to get support:
 
 ---
 
-Made with ❤️ by [Divyansh](https://github.com/divyansh-tech)
+Made with ❤️ by [Divyansh](https://github.com/Divyansh3105)
 
-![Visitors](https://visitor-badge.laobi.icu/badge?page_id=divyansh-tech.public-utility-management-system)
+![Visitors](https://visitor-badge.laobi.icu/badge?page_id=Divyansh3105.public-utility-management-system)
 
 </div>
