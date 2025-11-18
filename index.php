@@ -121,7 +121,7 @@ $csrf_token = generate_csrf_token();
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f0f2f5;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -131,34 +131,153 @@ $csrf_token = generate_csrf_token();
         }
 
         body.dark-mode {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: #0f1419;
         }
 
-        .login-container {
-            background: white;
-            padding: 50px 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        .login-wrapper {
+            display: flex;
             width: 100%;
-            max-width: 450px;
-            animation: slideIn 0.6s ease;
+            max-width: 1400px;
+            min-height: 650px;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.15);
+            animation: slideIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        body.dark-mode .login-container {
-            background: #2b2b3c;
-            color: #f1f1f1;
+        body.dark-mode .login-wrapper {
+            background: #1a1f2e;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: scale(0.9) translateY(40px);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1) translateY(0);
             }
+        }
+
+        /* ========== LEFT SIDE - IMAGE ========== */
+        .login-left {
+            flex: 1;
+            background: linear-gradient(135deg, #d0e8f2 0%, #b8dce8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .login-left {
+            background: linear-gradient(135deg, #1a2332 0%, #0f1823 100%);
+        }
+
+        .login-left::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: movePattern 20s linear infinite;
+        }
+
+        @keyframes movePattern {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(40px, 40px);
+            }
+        }
+
+        .banner-image-container {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .banner-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        body.dark-mode .banner-image-container img {
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5)) brightness(0.95);
+        }
+
+        /* ========== RIGHT SIDE - LOGIN FORM ========== */
+        .login-right {
+            flex: 1;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            background: white;
+        }
+
+        body.dark-mode .login-right {
+            background: #1a1f2e;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: transparent;
+            border: 2px solid #667eea;
+            border-radius: 50px;
+            padding: 10px 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #667eea;
+            transition: all 0.3s ease;
+            font-size: 13px;
+        }
+
+        body.dark-mode .theme-toggle {
+            border-color: #818cf8;
+            color: #818cf8;
+        }
+
+        .theme-toggle:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background: #818cf8;
         }
 
         .login-header {
@@ -167,56 +286,100 @@ $csrf_token = generate_csrf_token();
         }
 
         .login-header .logo {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            margin: 0 auto 25px;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.35);
+        }
+
+        body.dark-mode .login-header .logo {
+            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
         }
 
         .login-header .logo i {
-            font-size: 40px;
+            font-size: 45px;
             color: white;
         }
 
         .login-header h1 {
-            font-size: 28px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 32px;
+            color: #2c3e50;
             margin-bottom: 8px;
+            font-weight: 700;
         }
 
         body.dark-mode .login-header h1 {
-            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #f1f1f1;
         }
 
         .login-header p {
             color: #666;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 500;
         }
 
         body.dark-mode .login-header p {
             color: #a0a0a0;
         }
 
+        .form-container {
+            max-width: 420px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, #fee 0%, #fdd 100%);
+            border-left: 5px solid #dc3545;
+            color: #721c24;
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: shake 0.6s;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        body.dark-mode .error-message {
+            background: linear-gradient(135deg, #3a1a1a 0%, #4a2020 100%);
+            color: #ff6b6b;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-10px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(10px);
+            }
+        }
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             position: relative;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
+            margin-bottom: 10px;
+            color: #2c3e50;
             font-weight: 600;
             font-size: 14px;
         }
@@ -231,25 +394,32 @@ $csrf_token = generate_csrf_token();
 
         .input-wrapper i {
             position: absolute;
-            left: 15px;
+            right: 18px;
             top: 50%;
             transform: translateY(-50%);
-            color: #667eea;
-            font-size: 16px;
+            color: #999;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .input-wrapper i {
+            color: #666;
         }
 
         .form-control {
             width: 100%;
-            padding: 14px 14px 14px 45px;
+            padding: 16px 50px 16px 18px;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 15px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             background: #f8f9fa;
+            font-family: inherit;
+            color: #2c3e50;
         }
 
         body.dark-mode .form-control {
-            background: #1e1e2e;
+            background: #252b3a;
             border-color: #3a3a4a;
             color: #f1f1f1;
         }
@@ -258,95 +428,75 @@ $csrf_token = generate_csrf_token();
             outline: none;
             border-color: #667eea;
             background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
 
         body.dark-mode .form-control:focus {
-            background: #2b2b3c;
+            background: #2b3142;
             border-color: #818cf8;
+        }
+
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+        body.dark-mode .form-control::placeholder {
+            color: #666;
         }
 
         .btn-login {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            margin-top: 10px;
         }
 
         .btn-login:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 18px 45px rgba(102, 126, 234, 0.4);
         }
 
         .btn-login:active {
             transform: translateY(-1px);
         }
 
-        .error-message {
-            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-            border-left: 4px solid #dc3545;
-            color: #721c24;
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: shake 0.5s;
-        }
-
-        body.dark-mode .error-message {
-            background: linear-gradient(135deg, #3a1a1a 0%, #4a2a2a 100%);
-            color: #ff6b6b;
-        }
-
-        @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            25% {
-                transform: translateX(-10px);
-            }
-
-            75% {
-                transform: translateX(10px);
-            }
+        body.dark-mode .btn-login {
+            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
         }
 
         .demo-credentials {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 25px;
-            border: 2px solid #dee2e6;
+            padding: 25px;
+            border-radius: 14px;
+            margin-top: 30px;
+            border: 2px solid #e0e0e0;
         }
 
         body.dark-mode .demo-credentials {
-            background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3c 100%);
+            background: linear-gradient(135deg, #252b3a 0%, #1f2532 100%);
             border-color: #3a3a4a;
         }
 
         .demo-credentials h4 {
             color: #667eea;
-            margin-bottom: 12px;
-            font-size: 14px;
+            margin-bottom: 15px;
+            font-size: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-weight: 700;
         }
 
         body.dark-mode .demo-credentials h4 {
@@ -354,9 +504,12 @@ $csrf_token = generate_csrf_token();
         }
 
         .demo-item {
-            padding: 8px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #e0e0e0;
-            font-size: 13px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         body.dark-mode .demo-item {
@@ -368,9 +521,8 @@ $csrf_token = generate_csrf_token();
         }
 
         .demo-item strong {
-            color: #333;
-            min-width: 80px;
-            display: inline-block;
+            color: #2c3e50;
+            font-weight: 600;
         }
 
         body.dark-mode .demo-item strong {
@@ -379,120 +531,174 @@ $csrf_token = generate_csrf_token();
 
         .demo-item span {
             color: #666;
+            font-family: 'Courier New', monospace;
+            font-weight: 500;
         }
 
         body.dark-mode .demo-item span {
             color: #a0a0a0;
         }
 
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 50px;
-            padding: 10px 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            color: #667eea;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-            z-index: 1000;
-        }
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1024px) {
+            .login-wrapper {
+                flex-direction: column;
+                max-width: 600px;
+            }
 
-        body.dark-mode .theme-toggle {
-            background: #2b2b3c;
-            border-color: #818cf8;
-            color: #818cf8;
-        }
+            .login-left {
+                padding: 40px 30px;
+                min-height: 350px;
+            }
 
-        .theme-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+            .login-right {
+                padding: 50px 40px;
+            }
+
+            .banner-image-container {
+                max-width: 500px;
+            }
         }
 
         @media (max-width: 768px) {
-            .login-container {
-                padding: 35px 25px;
+            body {
+                padding: 15px;
+            }
+
+            .login-wrapper {
+                min-height: auto;
+            }
+
+            .login-left {
+                padding: 30px 20px;
+                min-height: 280px;
+            }
+
+            .login-right {
+                padding: 40px 30px;
+            }
+
+            .login-header h1 {
+                font-size: 26px;
+            }
+
+            .login-header .logo {
+                width: 75px;
+                height: 75px;
+            }
+
+            .login-header .logo i {
+                font-size: 38px;
             }
 
             .theme-toggle {
-                top: 10px;
-                right: 10px;
                 padding: 8px 15px;
-                font-size: 14px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-left {
+                padding: 25px 15px;
+                min-height: 220px;
+            }
+
+            .login-right {
+                padding: 35px 25px;
+            }
+
+            .login-header h1 {
+                font-size: 24px;
+            }
+
+            .demo-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .form-container {
+                max-width: 100%;
             }
         }
     </style>
 </head>
 
 <body>
-    <button class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon"></i>
-        <span>Dark Mode</span>
-    </button>
-
-    <div class="login-container">
-        <div class="login-header">
-            <div class="logo">
-                <i class="fas fa-plug"></i>
+    <div class="login-wrapper">
+        <!-- Left Side - Banner Image -->
+        <div class="login-left">
+            <div class="banner-image-container">
+                <img src="assets/public-utility-banner.png" alt="Public Utility Connect - Manage Your Essential Services" loading="lazy">
             </div>
-            <h1>Public Utility System</h1>
-            <p>Electricity & Water Bill Management</p>
         </div>
 
-        <?php if (isset($error)): ?>
-            <div class="error-message">
-                <i class="fas fa-exclamation-circle"></i>
-                <span><?= htmlspecialchars($error) ?></span>
-            </div>
-        <?php endif; ?>
-
-        <form method="POST">
-            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token); ?>">
-
-            <div class="form-group">
-                <label>Email / Phone / Username</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-user"></i>
-                    <input type="text" name="email" class="form-control" required autocomplete="username" autofocus>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Password</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="password" class="form-control" required autocomplete="current-password">
-                </div>
-            </div>
-
-            <button type="submit" name="login" class="btn-login">
-                <i class="fas fa-sign-in-alt"></i>
-                <span>Login</span>
+        <!-- Right Side - Login Form -->
+        <div class="login-right">
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <span>Dark</span>
             </button>
-        </form>
 
-        <div class="demo-credentials">
-            <h4>
-                <i class="fas fa-info-circle"></i>
-                Demo Credentials
-            </h4>
-            <div class="demo-item">
-                <strong>Admin:</strong>
-                <span>admin / 1234</span>
-            </div>
-            <div class="demo-item">
-                <strong>Employee:</strong>
-                <span>9876543210 / emp101</span>
-            </div>
-            <div class="demo-item">
-                <strong>Customer:</strong>
-                <span>divyansh@gmail.com / cust201</span>
+            <div class="form-container">
+                <div class="login-header">
+                    <div class="logo">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h1>Login to Your Account</h1>
+                    <p>Public Utility Management System</p>
+                </div>
+
+                <?php if (isset($error)): ?>
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span><?= htmlspecialchars($error) ?></span>
+                    </div>
+                <?php endif; ?>
+
+                <form method="POST">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token); ?>">
+
+                    <div class="form-group">
+                        <label>Email / Phone / Username</label>
+                        <div class="input-wrapper">
+                            <input type="text" name="email" class="form-control" placeholder="Enter your email or phone" required autocomplete="username" autofocus>
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" name="password" class="form-control" placeholder="Enter your password" required autocomplete="current-password">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" name="login" class="btn-login">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Login</span>
+                    </button>
+                </form>
+
+                <div class="demo-credentials">
+                    <h4>
+                        <i class="fas fa-info-circle"></i>
+                        Demo Credentials
+                    </h4>
+                    <div class="demo-item">
+                        <strong>Admin:</strong>
+                        <span>admin / 1234</span>
+                    </div>
+                    <div class="demo-item">
+                        <strong>Employee:</strong>
+                        <span>9876543210 / emp101</span>
+                    </div>
+                    <div class="demo-item">
+                        <strong>Customer:</strong>
+                        <span>divyansh@gmail.com / cust201</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -505,7 +711,7 @@ $csrf_token = generate_csrf_token();
 
         if (saved === 'dark') {
             body.classList.add('dark-mode');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light Mode</span>';
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light</span>';
         }
 
         themeToggle.addEventListener('click', () => {
@@ -513,14 +719,19 @@ $csrf_token = generate_csrf_token();
             const mode = body.classList.contains('dark-mode') ? 'dark' : 'light';
             localStorage.setItem('theme', mode);
             themeToggle.innerHTML = mode === 'dark' ?
-                '<i class="fas fa-sun"></i><span>Light Mode</span>' :
-                '<i class="fas fa-moon"></i><span>Dark Mode</span>';
+                '<i class="fas fa-sun"></i><span>Light</span>' :
+                '<i class="fas fa-moon"></i><span>Dark</span>';
         });
 
         // Auto-focus on error
         <?php if (isset($error)): ?>
             document.querySelector('input[name="email"]').focus();
         <?php endif; ?>
+
+        // Prevent form resubmission
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
     </script>
 </body>
 
