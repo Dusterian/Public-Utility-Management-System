@@ -3,6 +3,11 @@ session_start();
 include('../includes/db_connect.php');
 require_once('activity_log.php');
 
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
+    header("Location: ../index.php");
+    exit;
+}
+
 // ===== Admin Details =====
 $admin_name = $_SESSION['admin_name'] ?? 'Admin';
 $admin_id = $_SESSION['admin_id'] ?? 1;
