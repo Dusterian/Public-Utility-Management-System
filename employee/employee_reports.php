@@ -18,12 +18,18 @@ for ($m = 1; $m <= 12; $m++) {
 
 // Get filtered data if requested
 $filtered_total = null;
+$filtered_from = '';
+$filtered_to = '';
 if (isset($_GET['from']) && isset($_GET['to'])) {
-    $from = $_GET['from'];
-    $to = $_GET['to'];
-    $filtered = $conn->query("SELECT SUM(Amount_Paid) AS total FROM payment WHERE Date_of_Payment BETWEEN '$from' AND '$to'");
-    $row = $filtered->fetch_assoc();
+    $filtered_from = $_GET['from'];
+    $filtered_to = $_GET['to'];
+    $filtered_stmt = $conn->prepare("SELECT SUM(Amount_Paid) AS total FROM payment WHERE Date_of_Payment BETWEEN ? AND ?");
+    $filtered_stmt->bind_param("ss", $filtered_from, $filtered_to);
+    $filtered_stmt->execute();
+    $filtered_result = $filtered_stmt->get_result();
+    $row = $filtered_result->fetch_assoc();
     $filtered_total = $row['total'] ?? 0;
+    $filtered_stmt->close();
 }
 
 // Handle CSV export
@@ -85,11 +91,11 @@ if (isset($_POST['export_csv'])) {
             <form method="GET" class="form-grid">
                 <div class="form-group">
                     <label>From Date</label>
-                    <input type="date" name="from" class="form-control" value="<?= $_GET['from'] ?? '' ?>" required>
+                    <input type="date" name="from" class="form-control" value="<?= htmlspecialchars($filtered_from, ENT_QUOTES, 'UTF-8') ?>" required>
                 </div>
                 <div class="form-group">
                     <label>To Date</label>
-                    <input type="date" name="to" class="form-control" value="<?= $_GET['to'] ?? '' ?>" required>
+                    <input type="date" name="to" class="form-control" value="<?= htmlspecialchars($filtered_to, ENT_QUOTES, 'UTF-8') ?>" required>
                 </div>
                 <div class="form-group" style="display: flex; align-items: flex-end;">
                     <button class="btn btn-primary" type="submit" style="width: 100%;">
@@ -102,7 +108,7 @@ if (isset($_POST['export_csv'])) {
         <?php if ($filtered_total !== null): ?>
             <div class="alert alert-info" style="margin-top: 20px;">
                 <i class="fas fa-info-circle"></i>
-                <span><strong>Collection from <?= $_GET['from'] ?> to <?= $_GET['to'] ?>:</strong> ₹<?= number_format($filtered_total, 2) ?></span>
+                <span><strong>Collection from <?= htmlspecialchars($filtered_from, ENT_QUOTES, 'UTF-8') ?> to <?= htmlspecialchars($filtered_to, ENT_QUOTES, 'UTF-8') ?>:</strong> ₹<?= number_format($filtered_total, 2) ?></span>
             </div>
         <?php endif; ?>
 
