@@ -30,7 +30,10 @@ if (isset($_POST['login']) && isset($_POST['csrf_token'])) {
 
         if ($res->num_rows == 1) {
             $admin = $res->fetch_assoc();
-            if ($password === $admin['Password']) {
+            // Note: Existing passwords must be re-hashed using password_hash().
+            // Run: php -r "echo password_hash('your_password', PASSWORD_DEFAULT);"
+            // then update the database with the result.
+            if (password_verify($password, $admin['Password'])) {
                 session_regenerate_id(true);
                 $_SESSION['role'] = 'admin';
                 $_SESSION['name'] = $admin['Name'];
@@ -51,7 +54,7 @@ if (isset($_POST['login']) && isset($_POST['csrf_token'])) {
 
         if ($res->num_rows == 1) {
             $employee = $res->fetch_assoc();
-            if ($password === $employee['Password']) {
+            if (password_verify($password, $employee['Password'])) {
                 session_regenerate_id(true);
                 $_SESSION['role'] = 'employee';
                 $_SESSION['name'] = $employee['Name'];
@@ -71,7 +74,7 @@ if (isset($_POST['login']) && isset($_POST['csrf_token'])) {
 
         if ($res->num_rows == 1) {
             $customer = $res->fetch_assoc();
-            if ($password === $customer['Password']) {
+            if (password_verify($password, $customer['Password'])) {
                 session_regenerate_id(true);
                 $_SESSION['role'] = 'customer';
                 $_SESSION['name'] = $customer['Name'];

@@ -11,36 +11,41 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'employee') {
 $update_query = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $bill_id = $_POST['bill_id'] ?? '';
-    $amount_paid = $_POST['amount'] ?? '';
-    $payment_date = $_POST['payment_date'] ?? date('Y-m-d');
-    $bill_type = $_POST['bill_type'] ?? '';
-    $payment_mode = $_POST['mode'] ?? NULL;
+    if (!isset($_POST['csrf_token']) || !verify_csrf_token($_POST['csrf_token'])) {
+        $msg = "Invalid request. Please try again.";
+        $msg_type = "error";
+    } else {
+        $bill_id = $_POST['bill_id'] ?? '';
+        $amount_paid = $_POST['amount'] ?? '';
+        $payment_date = $_POST['payment_date'] ?? date('Y-m-d');
+        $bill_type = $_POST['bill_type'] ?? '';
+        $payment_mode = $_POST['mode'] ?? NULL;
 
-    if (!empty($bill_id) && $amount_paid !== '') {
-        $bill_table = (strtolower($bill_type) === 'water') ? 'water_bill' : 'electric_bill';
-        $update_query = "UPDATE `$bill_table` SET Status='Paid' WHERE Bill_ID='" . $conn->real_escape_string($bill_id) . "'";
+        if (!empty($bill_id) && $amount_paid !== '') {
+            $bill_table = (strtolower($bill_type) === 'water') ? 'water_bill' : 'electric_bill';
+            $update_query = "UPDATE `$bill_table` SET Status='Paid' WHERE Bill_ID='" . $conn->real_escape_string($bill_id) . "'";
 
-        if ($conn->query($update_query)) {
-            $stmt = $conn->prepare("INSERT INTO payment (Bill_Type, Bill_ID, Amount_Paid, Date_of_Payment, Mode_of_Payment) VALUES (?, ?, ?, ?, ?)");
-            if ($stmt) {
-                $stmt->bind_param("sidss", $bill_type, $bill_id, $amount_paid, $payment_date, $payment_mode);
-                $stmt->execute();
-                $stmt->close();
+            if ($conn->query($update_query)) {
+                $stmt = $conn->prepare("INSERT INTO payment (Bill_Type, Bill_ID, Amount_Paid, Date_of_Payment, Mode_of_Payment) VALUES (?, ?, ?, ?, ?)");
+                if ($stmt) {
+                    $stmt->bind_param("sidss", $bill_type, $bill_id, $amount_paid, $payment_date, $payment_mode);
+                    $stmt->execute();
+                    $stmt->close();
+                }
+                if (function_exists('logEmployeeAction')) {
+                    $desc = 'Updated payment for ' . ($bill_type ?: 'Electric') . ' Bill ID ' . $bill_id . ' (₹' . $amount_paid . ')';
+                    logEmployeeAction($conn, $_SESSION['employee_id'], 'Update Payment', $desc);
+                }
+                $msg = "Payment Updated Successfully!";
+                $msg_type = "success";
+            } else {
+                $msg = "Error: " . $conn->error;
+                $msg_type = "error";
             }
-            if (function_exists('logEmployeeAction')) {
-                $desc = 'Updated payment for ' . ($bill_type ?: 'Electric') . ' Bill ID ' . $bill_id . ' (₹' . $amount_paid . ')';
-                logEmployeeAction($conn, $_SESSION['employee_id'], 'Update Payment', $desc);
-            }
-            $msg = "Payment Updated Successfully!";
-            $msg_type = "success";
         } else {
-            $msg = "Error: " . $conn->error;
+            $msg = "Please fill all required fields.";
             $msg_type = "error";
         }
-    } else {
-        $msg = "Please fill all required fields.";
-        $msg_type = "error";
     }
 }
 

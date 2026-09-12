@@ -21,21 +21,26 @@ $start_from = ($page - 1) * $results_per_page;
 
 /* --- CRUD Operations --- */
 // DELETE
-if (isset($_POST['confirm_delete']) && isset($_POST['delete_id'])) {
-    $id = intval($_POST['delete_id']);
-    $emp_result = mysqli_query($conn, "SELECT Name FROM employee WHERE Employee_ID = $id");
-    $emp = mysqli_fetch_assoc($emp_result);
-    $emp_name = $emp['Name'] ?? 'Unknown';
-
-    $delete_query = "DELETE FROM employee WHERE Employee_ID = $id";
-    if (mysqli_query($conn, $delete_query)) {
-        $admin_id = $_SESSION['admin_id'] ?? 1;
-        logActivity($conn, $admin_id, "Deleted employee '$emp_name' (ID: $id)");
-        $toast = "Employee deleted successfully!";
-        $toast_type = "success";
-    } else {
-        $toast = "Error deleting employee.";
+if (isset($_POST['confirm_delete']) && isset($_POST['delete_id']) && isset($_POST['csrf_token'])) {
+    if (!verify_csrf_token($_POST['csrf_token'])) {
+        $toast = "Invalid request. Please try again.";
         $toast_type = "error";
+    } else {
+        $id = intval($_POST['delete_id']);
+        $emp_result = mysqli_query($conn, "SELECT Name FROM employee WHERE Employee_ID = $id");
+        $emp = mysqli_fetch_assoc($emp_result);
+        $emp_name = $emp['Name'] ?? 'Unknown';
+
+        $delete_query = "DELETE FROM employee WHERE Employee_ID = $id";
+        if (mysqli_query($conn, $delete_query)) {
+            $admin_id = $_SESSION['admin_id'] ?? 1;
+            logActivity($conn, $admin_id, "Deleted employee '$emp_name' (ID: $id)");
+            $toast = "Employee deleted successfully!";
+            $toast_type = "success";
+        } else {
+            $toast = "Error deleting employee.";
+            $toast_type = "error";
+        }
     }
 }
 
@@ -45,9 +50,10 @@ if (isset($_POST['add_employee']) && verify_csrf_token($_POST['csrf_token'])) {
     $role = sanitize_input($_POST['role']);
     $phone = sanitize_input($_POST['phone']);
     $password = sanitize_input($_POST['password']);
+    $hashed_password = hash_password($password);
 
     $stmt = $conn->prepare("INSERT INTO employee (Name, Role, Phone, Password) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $name, $role, $phone, $password);
+    $stmt->bind_param("ssss", $name, $role, $phone, $hashed_password);
 
     if ($stmt->execute()) {
         $toast = "Employee added successfully!";
@@ -254,7 +260,7 @@ $csrf_token = generate_csrf_token();
                                 <td><?= htmlspecialchars($row['Phone']) ?></td>
                                 <td>
                                     <button class="btn btn-primary" style="padding:8px 12px; margin-right:5px;"
-                                        onclick="openEditModal('<?= $row['Employee_ID'] ?>','<?= htmlspecialchars($row['Name']) ?>','<?= htmlspecialchars($row['Role']) ?>','<?= htmlspecialchars($row['Phone']) ?>','<?= htmlspecialchars($row['Password']) ?>')">
+                                        onclick="openEditModal('<?= $row['Employee_ID'] ?>','<?= htmlspecialchars($row['Name']) ?>','<?= htmlspecialchars($row['Role']) ?>','<?= htmlspecialchars($row['Phone']) ?>')">
                                         <i class="fas fa-edit"></i> Edit
                                     </button>
                                     <form method="POST" style="display:inline;">
@@ -343,12 +349,12 @@ $csrf_token = generate_csrf_token();
             document.body.style.overflow = 'auto';
         }
 
-        function openEditModal(id, name, role, phone, password) {
+        function openEditModal(id, name, role, phone) {
             document.getElementById('edit_employee_id').value = id;
             document.getElementById('edit_name').value = name;
             document.getElementById('edit_role').value = role;
             document.getElementById('edit_phone').value = phone;
-            document.getElementById('edit_password').value = password;
+            document.getElementById('edit_password').value = '********';
             document.getElementById('editModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }

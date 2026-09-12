@@ -85,6 +85,7 @@ if (isset($_POST['add_customer']) && isset($_POST['csrf_token'])) {
         $phone = sanitize_input($_POST['phone']);
         $email = sanitize_input($_POST['email']);
         $password = sanitize_input($_POST['password']);
+        $hashed_password = hash_password($password);
 
         $house_stmt = $conn->prepare("INSERT INTO house (House_Number, Owner_Name, Address) VALUES (?, ?, ?)");
         $house_stmt->bind_param("sss", $house_num, $owner, $address);
@@ -92,7 +93,7 @@ if (isset($_POST['add_customer']) && isset($_POST['csrf_token'])) {
         if ($house_stmt->execute()) {
             $house_id = $house_stmt->insert_id;
             $cust_stmt = $conn->prepare("INSERT INTO customer (Name, Phone, Email, Password, House_ID) VALUES (?, ?, ?, ?, ?)");
-            $cust_stmt->bind_param("ssssi", $name, $phone, $email, $password, $house_id);
+            $cust_stmt->bind_param("ssssi", $name, $phone, $email, $hashed_password, $house_id);
 
             if ($cust_stmt->execute()) {
                 $toast = "Customer and House added successfully!";
@@ -350,7 +351,7 @@ $csrf_token = generate_csrf_token();
                                 <td>#<?= htmlspecialchars($row['House_ID']) ?></td>
                                 <td>
                                     <button class="btn btn-primary" style="padding: 8px 12px; margin-right: 5px;"
-                                        onclick='openEditModal(<?= json_encode($row["Customer_ID"]) ?>, <?= json_encode($row["Name"]) ?>, <?= json_encode($row["Phone"]) ?>, <?= json_encode($row["Email"]) ?>, <?= json_encode($row["House_ID"]) ?>, <?= json_encode($row["House_Number"]) ?>, <?= json_encode($row["Owner_Name"]) ?>, <?= json_encode($row["Address"]) ?>, <?= json_encode($row["Password"]) ?>)'>
+                                        onclick='openEditModal(<?= json_encode($row["Customer_ID"]) ?>, <?= json_encode($row["Name"]) ?>, <?= json_encode($row["Phone"]) ?>, <?= json_encode($row["Email"]) ?>, <?= json_encode($row["House_ID"]) ?>, <?= json_encode($row["House_Number"]) ?>, <?= json_encode($row["Owner_Name"]) ?>, <?= json_encode($row["Address"]) ?>)'>
                                         <i class="fas fa-edit"></i> Edit
                                     </button>
                                     <button class="btn btn-danger" style="padding: 8px 12px;"
@@ -594,7 +595,7 @@ $csrf_token = generate_csrf_token();
             document.body.style.overflow = 'auto';
         }
 
-        function openEditModal(cId, name, phone, email, hId, hNum, owner, addr, pwd) {
+        function openEditModal(cId, name, phone, email, hId, hNum, owner, addr) {
             document.getElementById('edit_customer_id').value = cId;
             document.getElementById('edit_house_id').value = hId;
             document.getElementById('edit_house_number').value = hNum;
@@ -603,7 +604,7 @@ $csrf_token = generate_csrf_token();
             document.getElementById('edit_name').value = name;
             document.getElementById('edit_phone').value = phone;
             document.getElementById('edit_email').value = email;
-            document.getElementById('edit_password').value = pwd;
+            document.getElementById('edit_password').value = '********';
             document.getElementById('editModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
