@@ -272,7 +272,7 @@ $water_summary = $conn->query($summary_query)->fetch_assoc();
         <!-- Filter Form -->
         <div class="filter-form">
             <form method="GET" id="filterForm">
-                <input type="hidden" name="tab" id="currentTab" value="<?= $_GET['tab'] ?? 'electric' ?>">
+                <input type="hidden" name="tab" id="currentTab" value="<?= htmlspecialchars($_GET['tab'] ?? 'electric', ENT_QUOTES, 'UTF-8') ?>">
                 <div class="filter-row">
                     <div class="form-group">
                         <label>Search</label>
